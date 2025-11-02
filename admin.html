@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>Admin Panel</title>
+<style>
+body{font-family:sans-serif;padding:20px;background:#f7f7f7}
+input,select,button{margin:6px;padding:6px 10px;font-size:15px}
+</style>
+</head>
+<body>
+<h2>Ubah Status Transaksi</h2>
+<input id="trxId" placeholder="Masukkan ID transaksi">
+<select id="newStatus">
+  <option>Menunggu Konfirmasi</option>
+  <option>Diproses</option>
+  <option>Selesai</option>
+  <option>Dibatalkan</option>
+</select>
+<button id="updateBtn">Update</button>
+<pre id="result"></pre>
+
+<script>
+document.getElementById('updateBtn').onclick = async () => {
+  const id = document.getElementById('trxId').value.trim();
+  const newStatus = document.getElementById('newStatus').value;
+  let list = [];
+  try {
+    const res = await fetch('transactions.json');
+    if (res.ok) list = await res.json();
+  } catch {}
+
+  const trx = list.find(t => t.id === id);
+  if (!trx) {
+    document.getElementById('result').textContent = '❌ Transaksi tidak ditemukan.';
+    return;
+  }
+
+  trx.status = newStatus;
+  document.getElementById('result').textContent = '✅ Status transaksi diperbarui:\n' + JSON.stringify(trx, null, 2);
+
+  // (kalau sudah backend, di sini POST ke server)
+};
+</script>
+</body>
+</html>
