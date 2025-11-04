@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="id" class="light-pending">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Toko Juragan UB — Murah & Aman</title>
+<link rel="icon" href="https://h.top4top.io/p_3594s2w4m0.jpg"/>
+<style>
+:root{
+  /* ===== Palet aqua–magenta neon ===== */
+  --bg:#070a12;
+  --bg2:#0a0e19;
+  --card:#0b0f1b;
+
+  --edge:#1a2747;        /* outer edge default */
+  --inner:#0e1731;       /* inner edge default (lebih gelap) */
+
+  /* === Tambahan: versi lebih terang untuk list akun & topup === */
+  --edge-bright:#2a4faf;   /* TERANG: border luar list */
+  --inner-bright:#16306c;  /* TERANG: border dalam list */
+
+  --text:#e9f0ff;
+  --muted:#9fb0d9;
+  --brand:#00f0ff;       /* aqua */
+  --brand2:#ff2ec4;      /* magenta */
+
+  --enterDur:.45s; --enterDelay:.06s;
+  --tickerSpeed:18s;
+}
+
+/* ==== UTIL EFEK GELAP/TERANG TANPA BERAT ==== */
+.hov-bright{transition:filter .15s ease, transform .15s ease}
+.hov-bright:hover{filter:brightness(1.08)}
+.hov-bright:active{filter:brightness(.92); transform:translateY(1px)}
+
+/* ==== BORDER 2-TONE (default) ==== */
+.duotone{
+  border:1px solid var(--edge);
+  box-shadow: inset 0 0 0 1px var(--inner);
+}
+/* ==== BORDER 2-TONE BRIGHT (khusus list akun/topup) ==== */
+.duotone-bright{
+  border:1px solid var(--edge-bright);
+  box-shadow: inset 0 0 0 1px var(--inner-bright);
+}
+
+/* Fokus ring universal */
+:where(button,.pill,.input-neon,input,textarea,.tab).focusable:focus{
+  outline:2px solid var(--brand);
+  outline-offset:2px;
+}
+
+/* ===== BASE ===== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;color:var(--text);
+  background:linear-gradient(160deg,var(--bg),var(--bg2)) fixed;overflow-x:hidden
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:1100px;margin:0 auto;padding:16px;opacity:0;transform:translateY(10px)}
+.container.enter{opacity:1;transform:none;transition:opacity .35s ease, transform .35s ease}
+
+/* ===== HEADER ===== */
+header{display:flex;align-items:center;gap:10px;margin:6px 0 8px}
+.logo{width:46px;height:46px;border-radius:50%;overflow:hidden}
+.logo .img-wrap{border-radius:50%}
+.brand h1{margin:0;font-size:18px;color:var(--brand)}
+.brand p{margin:0;color:var(--muted);font-size:12px}
+.spacer{flex:1}
+
+/* ===== TICKER ===== */
+@keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-wrap{position:relative;margin:8px 0;border-radius:10px;background:#0a1126}
+.ticker-wrap.duotone{}
+.ticker{display:flex;align-items:center;gap:10px;height:34px;overflow:hidden}
+.ticker .dot{width:6px;height:6px;border-radius:50%;background:linear-gradient(90deg,var(--brand),var(--brand2))}
+.ticker-track{display:flex;gap:28px;white-space:nowrap;animation:tickerMove var(--tickerSpeed) linear infinite}
+.ticker-item{color:#cbe4ff}
+
+/* ===== BANNER ===== */
+.banner{border-radius:12px;overflow:hidden;background:#0a1024}
+.banner.duotone{}
+.banner-frame{position:relative;aspect-ratio:3/1;min-height:140px}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .35s}
+.slide.active{opacity:1}
+.dots{display:flex;gap:6px;justify-content:center;padding:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#1d294a;border:1px solid #2b3d64}
+.dot.active{background:linear-gradient(90deg,var(--brand),var(--brand2))}
+
+/* ===== TABS ===== */
+.tabs-wrap{display:flex;justify-content:center;margin:10px 0 0}
+.tabs{display:flex;gap:8px;border-radius:10px;background:#0b1124;padding:4px}
+.tabs.duotone{}
+.tab{border:0;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer;color:#cfe0ff;background:transparent}
+.tab.active{color:#031724;background:linear-gradient(90deg,#00e4ff,#ff7adf)}
+
+/* ===== GRID & CARDS ===== */
+.grid{display:grid;grid-template-columns:3fr 2fr;gap:12px;margin-top:12px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:#0a0e1a;border-radius:12px;overflow:hidden}
+.card.duotone{}
+.card .hd{padding:10px 12px;border-bottom:1px solid var(--inner);font-weight:800;color:#7addff}
+.card .bd{padding:12px}
+
+/* ===== IMAGE LOADER ===== */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.img-wrap{position:relative;overflow:hidden;background:#0a122a}
+.img-wrap img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .2s}
+.img-wrap .ph{position:absolute;inset:0;background:linear-gradient(100deg,#0b1530 20%,#13224a 40%,#0b1530 60%);background-size:300% 100%;animation:shimmer 1.1s infinite linear}
+.img-wrap::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;border:3px solid #1c2846;border-top-color:var(--brand);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.img-wrap.loaded img{opacity:1}
+.img-wrap.loaded .ph,.img-wrap.loaded::after{display:none}
+
+/* contain untuk topup */
+.img-wrap.contain{display:flex;align-items:center;justify-content:center;width:100%;max-height:68vh;min-height:300px;border-radius:10px}
+.img-wrap.contain img{width:100%;height:auto;max-height:68vh;object-fit:contain}
+
+/* ===== ACCOUNTS ===== */
+.accounts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.acc{background:#0a0f1b;border-radius:10px;overflow:hidden}
+.acc.duotone-bright{} /* border terang diterapkan di elemen */
+.acc .meta{padding:10px;border-top:1px solid var(--inner-bright)}
+.acc .title{font-weight:800;font-size:14px;margin:0 0 4px}
+.acc .price{
+  display:inline-block;padding:5px 8px;border-radius:999px;
+  background:linear-gradient(90deg,#001c33,#1a0030);
+  color:#72ecff;border:1px solid #2aa8ff;font-size:12px
+}
+.acc ul{margin:6px 0 0 16px;padding:0;font-size:12px;color:#c5d7ff}
+.acc .btns{display:flex;flex-direction:column;gap:8px;margin:10px}
+
+/* ===== BUTTONS ===== */
+.btn{
+  border-radius:8px;padding:9px 12px;font-weight:800;cursor:pointer;color:#e5eeff;
+  transition:filter .15s ease, transform .15s ease, box-shadow .15s ease
+}
+.btn.primary{
+  background:linear-gradient(90deg,#00a6ff,#ff61cf);
+  border:1px solid #2b7fff;
+}
+.btn.secondary{
+  background:#0b1833;border:1px solid #243256
+}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+/* ===== TOPUP ===== */
+.picker{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.pill{
+  padding:8px 12px;border-radius:999px;cursor:pointer;background:#0b1833;color:#cfe0ff;
+  border:1px solid var(--edge-bright);box-shadow:inset 0 0 0 1px var(--inner-bright)
+}
+.pill.active{
+  background:linear-gradient(90deg,#00e4ff,#ff7adf);
+  color:#001423;border-color:#00d1ff;box-shadow:none
+}
+.topup-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.input-neon{
+  flex:1;min-width:200px;padding:9px 11px;border-radius:8px;background:#0b1230;color:#e6ecff;
+  border:1px solid var(--edge-bright);box-shadow:inset 0 0 0 1px var(--inner-bright)
+}
+.input-neon[disabled]{opacity:.55;cursor:not-allowed}
+
+/* ===== MODAL ===== */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,20,.80);z-index:9999;padding:10px}
+.modal.open{display:flex}
+.sheet{width:100%;max-width:520px;background:#0a1122;border-radius:12px;overflow:hidden}
+.sheet.duotone{}
+.sheet .shd{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--inner);color:#72ecff;font-weight:800}
+.sheet .sbd{padding:12px}
+.sheet .sft{padding:10px 12px;border-top:1px solid var(--inner);display:flex;gap:8px;justify-content:flex-end}
+.row{display:grid;grid-template-columns:110px 1fr;gap:8px;margin-bottom:8px;align-items:center}
+.row input,.row textarea{
+  width:100%;padding:9px 11px;border-radius:8px;background:#0b1230;color:#e6ecff;
+  border:1px solid var(--edge);box-shadow:inset 0 0 0 1px var(--inner)
+}
+.row input[readonly]{background:#0b1230aa;color:#bfe7ff}
+.qris-box{border:1px dashed var(--brand);border-radius:10px;padding:8px;background:#071226;text-align:center}
+.qr-wrap{display:flex;align-items:center;justify-content:center;margin:auto;border-radius:10px;overflow:hidden;background:#09122a;width:100%;max-width:340px;min-height:240px}
+.qr-wrap img{width:100%;height:auto;object-fit:contain}
+
+/* ===== IMG PREVIEW ===== */
+.img-modal .sheet{max-width:720px}
+
+/* ===== FLOAT WA ===== */
+.fab{
+  position:fixed;right:14px;bottom:14px;z-index:10000;display:inline-flex;align-items:center;gap:8px;
+  padding:10px 12px;border-radius:999px;border:1px solid #2b7fff;
+  background:linear-gradient(90deg,#00a6ff,#ff61cf);color:#eaffff
+}
+.fab img{width:18px;height:18px}
+
+/* ===== CONTENT-VISIBILITY ===== */
+.card,.banner,.ticker-wrap,.accounts>.acc{content-visibility:auto;contain-intrinsic-size:600px 360px}
+
+/* ===== SPLASH ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fadeOut{to{opacity:0}}
+.splash{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#060911;z-index:100000;
+}
+.splash-inner{display:flex;flex-direction:column;align-items:center;gap:10px;animation:fadeUp .4s ease-out both}
+.splash .logo-big{width:120px;height:120px;border-radius:50%;overflow:hidden}
+.splash h2{margin:8px 0 0;font-weight:900;letter-spacing:.5px;background:linear-gradient(90deg,#7eeaff,#ff66d5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash p{margin:0;color:#cfe8ff;opacity:.95}
+.splash.hide{animation:fadeOut .35s ease forwards}
+
+/* ===== LIGHT MODE ===== */
+html.light body{background:#0a0d16}
+html.light .ticker-track{animation-duration:30s}
+
+/* ====== SWIPE AREA HELPER (opsional visual debug) ====== */
+/* .swipe-zone{outline:1px dashed #224} */
+</style>
+</head>
+<body>
+<center>
+<!-- SPLASH -->
+<div id="splash" class="splash" aria-hidden="true">
+  <div class="splash-inner">
+    <div class="logo-big duotone">
+      <div class="img-wrap" style="width:100%;height:100%">
+        <img id="splashLogo" alt="Juragan UB"/><div class="ph"></div>
+      </div>
+    </div>
+    <h2>Juragan UB</h2>
+    <p>Sedia segala kebutuhan kalian<br>Murah • Cepat • Aman • Terpercaya</p>
+  </div>
+</div>
+</center>
+<div class="container" id="app">
+  <header>
+    <div class="logo duotone hov-bright">
+      <div class="img-wrap" style="width:100%;height:100%;border-radius:50%">
+        <img id="logoImg" alt="Logo" loading="lazy" decoding="async"/><div class="ph"></div>
+      </div>
+    </div>
+    <div class="brand">
+      <h1>Toko Juragan UB</h1>
+      <p class="muted">Sedia segala kebutuhan kalian</p>
+    </div>
+    <div class="spacer"></div>
+  </header>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap duotone hov-bright">
+    <div class="ticker">
+      <div class="dot"></div>
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner duotone">
+    <div class="banner-frame" id="bannerFrame"></div>
+    <div class="dots" id="bannerDots"></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrap">
+    <div class="tabs duotone">
+      <button class="tab active hov-bright focusable" id="tabAkun" type="button">Beli Akun</button>
+      <button class="tab hov-bright focusable" id="tabTopup" type="button">Top Up</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- LEFT -->
+    <div class="card duotone hov-bright">
+      <div class="hd" id="leftTitle">Akun Ready</div>
+      <!-- swipe hanya di area konten kiri -->
+      <div class="bd swipe-zone" id="leftBody"><div class="accounts" id="accounts"></div></div>
+    </div>
+
+    <!-- RIGHT (preload only) -->
+    <div class="card duotone hov-bright" id="rightCard">
+      <div class="hd">Pricelist</div>
+      <div class="bd">
+        <div class="img-wrap duotone-bright" style="border-radius:10px;overflow:hidden">
+          <img id="pricelistImg" alt="Pricelist" loading="lazy" decoding="async"/><div class="ph"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="text-align:center;color:var(--muted);margin:16px 0 8px;font-size:12px">
+    © <span id="year"></span> Juragan UB x Piy Store
+  </footer>
+</div>
+
+<!-- Contact Admin -->
+<a id="floatWA" class="fab hov-bright" target="_blank" rel="noopener">
+  <img id="waIcon" alt="WA"/> Contact Admin
+</a>
+
+<!-- Payment Modal -->
+<div class="modal" id="payModal" aria-hidden="true">
+  <div class="sheet duotone" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+    <div class="shd">
+      <span id="payTitle">Pembayaran</span>
+      <button class="btn secondary hov-bright focusable" id="closePay" type="button">Tutup</button>
+    </div>
+    <div class="sbd">
+      <div class="row"><label>Produk</label><input class="focusable" id="prod" readonly></div>
+      <div class="row"><label>Nama</label><input class="input-neon focusable" id="nama" placeholder="Nama kamu"></div>
+      <div class="row"><label>Nominal</label><input class="focusable" id="nominal" readonly></div>
+      <div class="row"><label>Catatan</label><textarea class="focusable" id="note" rows="2" placeholder="(opsional)"></textarea></div>
+      <div class="row"><label>Kode Referral</label><input class="input-neon focusable" id="ref" placeholder="(opsional) contoh: JRGNUB-123"></div>
+
+      <div class="qris-box">
+        <div class="qr-wrap img-wrap loaded" id="qrWrap">
+          <img id="qrisImg" alt="QRIS" loading="lazy" decoding="async" style="opacity:1"/>
+        </div>
+      </div>
+    </div>
+    <div class="sft">
+      <a class="btn secondary hov-bright focusable" id="btnBukaQris" target="_blank" rel="noopener">Buka QR</a>
+      <a class="btn primary hov-bright focusable" id="btnKonfirmasi" target="_blank" rel="noopener">Konfirmasi Admin</a>
+    </div>
+  </div>
+</div>
+
+<!-- Image Preview Modal -->
+<div class="modal img-modal" id="imgModal" aria-hidden="true">
+  <div class="sheet duotone" role="dialog" aria-modal="true" aria-labelledby="imgTitle">
+    <div class="shd">
+      <span id="imgTitle">Lihat Foto</span>
+      <button class="btn secondary hov-bright focusable" id="closeImg" type="button">Tutup</button>
+    </div>
+    <div class="sbd">
+      <div class="img-wrap contain duotone-bright" id="previewWrap" style="border-radius:0;max-height:72vh">
+        <img id="imgPreview" alt="Preview" loading="lazy" decoding="async"/><div class="ph"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========= ASSETS ========= */
+const REMOTE_ASSETS={
+  qris:'https://c.top4top.io/p_35940qdqt0.jpg',
+  pricelist:'https://k.top4top.io/p_3594r90tk0.jpg',
+  logo:'https://h.top4top.io/p_3594s2w4m0.jpg',
+  iconWa:'https://i.top4top.io/p_3594b7vhp1.png',
+  akun:[
+    'https://k.top4top.io/p_35946v0a78.jpg',
+    'https://j.top4top.io/p_359486a7k7.jpg',
+    'https://i.top4top.io/p_3594i5h006.jpg',
+    'https://h.top4top.io/p_359410efc5.jpg',
+    'https://g.top4top.io/p_3594gx5hb4.jpg',
+  ],
+  banners:[
+    'https://f.top4top.io/p_3594d209w3.jpg',
+    'https://d.top4top.io/p_35945uds21.jpg',
+    'https://e.top4top.io/p_3594m9u0e2.jpg',
+  ],
+};
+const ACCOUNT_DATA=[
+  {title:'Akun Bussid Low',img:REMOTE_ASSETS.akun[0],price:10000,info:['250JT UB','Log Fb','All Aman']},
+  {title:'Akun Bussid Medium',img:REMOTE_ASSETS.akun[1],price:20000,info:['500JT UB','Log Fb','All Aman']},
+  {title:'Akun Bussid Pro',img:REMOTE_ASSETS.akun[2],price:25000,info:['1M UB','Log Fb','All Aman']},
+  {title:'Akun Bussid Special',img:REMOTE_ASSETS.akun[3],price:30000,info:['1,5M UB','Log FB','All Aman']},
+  {title:'Akun Bussid Vip',img:REMOTE_ASSETS.akun[4],price:35000,info:['2M Max UB','Log Fb','Exclusive']},
+];
+
+const adminNumber='6287729805594';
+const fmt=n=>(Number(String(n||'').replace(/\D/g,''))||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+
+// === Referral from URL (?reff=) ===
+const REF_PARAM = (new URLSearchParams(location.search).get('reff') || '').trim();
+
+/* ========= LIGHT DETECTOR ========= */
+(function(){
+  const qs=new URLSearchParams(location.search);
+  const forced = qs.get('light');
+  const prefersReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mem = navigator.deviceMemory || 4;
+  const cores = navigator.hardwareConcurrency || 8;
+  let isLight = false;
+  if (forced === '1') isLight = true;
+  else if (forced === '0') isLight = false;
+  else isLight = prefersReduce || mem <= 3 || cores <= 4;
+  if(isLight) document.documentElement.classList.add('light');
+  document.documentElement.classList.remove('light-pending');
+})();
+
+/* ========= HELPERS ========= */
+function setImgWithLoader(imgEl, src){
+  const wrap=imgEl.closest('.img-wrap')||imgEl.parentElement;
+  if(wrap) wrap.classList.remove('loaded');
+  imgEl.onload=()=>{ if(wrap) wrap.classList.add('loaded'); };
+  imgEl.onerror=()=>{ if(wrap) wrap.classList.add('loaded'); };
+  imgEl.loading='lazy'; imgEl.decoding='async';
+  imgEl.src=src;
+}
+function createThumbWithLoader(src, alt, h=130){
+  const w=document.createElement('div'); w.className='img-wrap duotone-bright';
+  w.style.cssText=`width:100%;height:${h}px;border-radius:10px 10px 0 0`;
+  const img=new Image(); img.alt=alt||''; const ph=document.createElement('div'); ph.className='ph';
+  w.appendChild(img); w.appendChild(ph); setImgWithLoader(img,src); return w;
+}
+function getDateTimeID(){
+  const tz='Asia/Jakarta', d=new Date();
+  const parts=new Intl.DateTimeFormat('id-ID',{timeZone:tz,day:'numeric',month:'numeric',year:'numeric'}).formatToParts(d);
+  const tanggal=`${parts.find(p=>p.type==='day').value} ${parts.find(p=>p.type==='month').value} ${parts.find(p=>p.type==='year').value}`;
+  const jam=new Intl.DateTimeFormat('id-ID',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:false}).format(d)+' WIB';
+  return {tanggal, jam};
+}
+function onVisible(el, fn, rootMargin='120px'){
+  if(!el) return;
+  const io=new IntersectionObserver(([e])=>{
+    if(e.isIntersecting){ fn(); io.disconnect(); }
+  },{rootMargin});
+  io.observe(el);
+}
+
+/* ========= SPLASH INIT ========= */
+setImgWithLoader(document.getElementById('splashLogo'), REMOTE_ASSETS.logo);
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    const sp=document.getElementById('splash');
+    sp.classList.add('hide');
+    document.getElementById('app').classList.add('enter');
+    setTimeout(()=> sp.remove(), 1000);
+  }, 3000);
+});
+
+/* ========= BASE INIT ========= */
+setImgWithLoader($('#logoImg'), REMOTE_ASSETS.logo);
+$('#year').textContent=new Date().getFullYear();
+$('#waIcon').src=REMOTE_ASSETS.iconWa;
+$('#floatWA').href=`https://wa.me/${adminNumber}?text=${encodeURIComponent('Halo admin, saya butuh bantuan / ingin order 😊')}`;
+
+const msgs=['Garansi login untuk semua akun ready.','Promo: Cashback untuk order tertentu!','Scan QRIS → Konfirmasi → Diproses cepat.','Admin online setiap hari.'];
+$('#tickerTrack').innerHTML=[...msgs,...msgs].map(t=>`<span class="ticker-item">${t}</span>`).join('<span class="ticker-item">•</span>');
+
+/* ========= BANNER (LAZY INIT + PAUSE WHEN HIDDEN) ========= */
+let bannerTimer=null, bannerApi=null;
+function setupBannerRotator(){
+  const frame=$('#bannerFrame'), dots=$('#bannerDots'), list=REMOTE_ASSETS.banners.filter(Boolean);
+  list.forEach((src,i)=>{
+    const slide=document.createElement('div'); slide.className='slide'+(i===0?' active':'');
+    const wrap=document.createElement('div'); wrap.className='img-wrap duotone-bright'; wrap.style.cssText='width:100%;height:100%';
+    const img=new Image(); img.alt='Banner '+(i+1); const ph=document.createElement('div'); ph.className='ph';
+    wrap.appendChild(img); wrap.appendChild(ph); slide.appendChild(wrap); frame.appendChild(slide);
+    img.onload=()=>wrap.classList.add('loaded'); img.onerror=()=>wrap.classList.add('loaded'); img.loading='lazy'; img.decoding='async'; img.src=src;
+    const dot=document.createElement('div'); dot.className='dot'+(i===0?' active':''); dot.addEventListener('click',()=>set(i,true)); dots.appendChild(dot);
+  });
+  const slides=[...frame.children], ind=[...dots.children]; let idx=0;
+  function set(i,manual=false){ idx=(i+slides.length)%slides.length; slides.forEach((s,k)=>s.classList.toggle('active',k===idx)); ind.forEach((d,k)=>d.classList.toggle('active',k===idx)); if(manual) restart(); }
+  const next=()=>set(idx+1);
+  const interval = document.documentElement.classList.contains('light') ? 7000 : 4500;
+  const start=()=>{ if(!bannerTimer) bannerTimer=setInterval(next, interval); };
+  const stop =()=>{ clearInterval(bannerTimer); bannerTimer=null; };
+  const restart=()=>{ stop(); start(); };
+  bannerApi={start,stop};
+}
+onVisible(document.getElementById('bannerFrame'), ()=>{ if(!bannerApi) setupBannerRotator(); bannerApi.start(); });
+document.addEventListener('visibilitychange', ()=>{ if(!bannerApi) return; if(document.hidden) bannerApi.stop(); else bannerApi.start(); });
+
+/* ========= RENDER: AKUN ========= */
+let CURRENT_TAB='akun';
+function renderAccounts(){
+  CURRENT_TAB='akun';
+  $('#leftTitle').textContent='Akun Ready';
+  const body=$('#leftBody'); body.innerHTML='<div class="accounts" id="accounts"></div>'; const wrap=$('#accounts');
+  ACCOUNT_DATA.forEach(acc=>{
+    const card=document.createElement('div'); card.className='acc duotone-bright hov-bright';
+    card.appendChild(createThumbWithLoader(acc.img, acc.title, 130));
+    const meta=document.createElement('div'); meta.className='meta';
+    meta.innerHTML=`<div class="title">${acc.title}</div><span class="price">Rp ${fmt(acc.price)}</span><ul>${acc.info.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+    const btns=document.createElement('div'); btns.className='btns';
+    const buy=document.createElement('button'); buy.className='btn primary hov-bright focusable'; buy.textContent='Beli / Bayar'; buy.dataset.action='buy'; buy.dataset.title=acc.title; buy.dataset.price=acc.price;
+    const photo=document.createElement('button'); photo.className='btn secondary hov-bright focusable'; photo.textContent='Lihat Foto'; photo.dataset.action='photo'; photo.dataset.title=acc.title; photo.dataset.img=acc.img;
+    btns.appendChild(buy); btns.appendChild(photo); card.appendChild(meta); card.appendChild(btns); wrap.appendChild(card);
+  });
+  $('#rightCard').style.display='none';
+}
+
+/* ========= RENDER: TOPUP ========= */
+function renderTopup(){
+  CURRENT_TAB='topup';
+  $('#leftTitle').textContent='Top Up';
+  const body=$('#leftBody'); const quick=[5000,10000,20000,30000,35000,40000,45000,50000];
+  body.innerHTML=`
+  <div class="card duotone-bright hov-bright" style="background:#0a0f1c">
+    <div class="bd">
+      <b style="color:#7eeaff">Top Up via QRIS</b>
+      <p class="muted" style="margin:.25rem 0 .6rem">Pilih nominal cepat, atau tekan <b>Custom Nominal</b> untuk mengisi sendiri.</p>
+
+      <div class="img-wrap contain duotone-bright" style="margin:8px 0 12px">
+        <img id="topupOnlyImg" alt="Pricelist Topup"/><div class="ph"></div>
+      </div>
+
+      <div class="picker" id="picker">
+        ${quick.map(v=>`<button type="button" class="pill hov-bright focusable" data-action="pick" data-val="${v}">Rp ${fmt(v)}</button>`).join('')}
+        <button type="button" class="pill hov-bright focusable" data-action="pick" data-val="custom" id="btnCustom">Custom Nominal</button>
+      </div>
+
+      <div class="topup-actions">
+        <input id="topupNom" class="input-neon focusable" placeholder="Nominal custom (cth: 75000)" inputmode="numeric" disabled>
+        <button class="btn primary hov-bright focusable" id="topupPay" data-action="topup-pay" type="button">Bayar Sekarang</button>
+      </div>
+    </div>
+  </div>`;
+  setImgWithLoader($('#topupOnlyImg'), REMOTE_ASSETS.pricelist);
+  $('#rightCard').style.display='none';
+}
+
+/* ========= TABS (klik) ========= */
+$('#tabAkun').addEventListener('click',()=>{ $('#tabAkun').classList.add('active'); $('#tabTopup').classList.remove('active'); renderAccounts(); });
+$('#tabTopup').addEventListener('click',()=>{ $('#tabTopup').classList.add('active'); $('#tabAkun').classList.remove('active'); renderTopup(); });
+
+/* ========= EVENTS dalam area konten kiri ========= */
+$('#leftBody').addEventListener('click',(e)=>{
+  const t=e.target.closest('[data-action]'); if(!t) return; const act=t.dataset.action;
+  if(act==='buy'){ openPay(t.dataset.title||'Produk', Number(t.dataset.price||0)); return; }
+  if(act==='photo'){ openImg(t.dataset.img, t.dataset.title||'Lihat Foto'); return; }
+  if(act==='pick'){
+    const pills=$$('#picker .pill'); pills.forEach(p=>p.classList.remove('active')); t.classList.add('active');
+    const input=$('#topupNom'); const val=t.dataset.val;
+    if(val==='custom'){ input.disabled=false; input.focus(); input.dataset.selected=''; }
+    else{ input.value=''; input.disabled=true; input.dataset.selected=String(val); }
+    return;
+  }
+  if(act==='topup-pay'){
+    const input=$('#topupNom');
+    const picked=Number(input?.dataset?.selected||'0');
+    const custom = input.disabled ? 0 : (Number(String(input?.value||'').replace(/\D/g,''))||0);
+    const use=picked||custom;
+    if(!use){ alert('Pilih nominal cepat atau aktifkan "Custom Nominal".'); return; }
+    openPay('Top Up', use); return;
+  }
+},{passive:true});
+
+/* ========= SWIPE: hanya di area konten (daftar akun/topup) ========= */
+(function(){
+  const zone = document.getElementById('leftBody');
+  let x0=0, y0=0, t0=0, swiping=false;
+
+  function onTouchStart(e){
+    if(!e.touches||e.touches.length!==1) return;
+    const t=e.touches[0]; x0=t.clientX; y0=t.clientY; t0=Date.now(); swiping=true;
+  }
+  function onTouchMove(e){
+    if(!swiping) return;
+    const t=e.touches[0]; const dx=t.clientX-x0; const dy=t.clientY-y0;
+    if(Math.abs(dx)>Math.abs(dy) && Math.abs(dx)>10){
+      // horizontal gesture → cegah scroll halaman
+      e.preventDefault();
+    }
+  }
+  function onTouchEnd(e){
+    if(!swiping) return; swiping=false;
+    const dt=Date.now()-t0;
+    const touch=(e.changedTouches&&e.changedTouches[0])||{clientX:x0,clientY:y0};
+    const dx=touch.clientX - x0, dy=touch.clientY - y0;
+    const THRESH = 60; // jarak minimal geser
+    if(Math.abs(dx)>Math.abs(dy) && Math.abs(dx)>THRESH && dt<600){
+      if(dx<0 && CURRENT_TAB==='akun'){ // geser kiri → ke Topup
+        document.getElementById('tabTopup').click();
+      }else if(dx>0 && CURRENT_TAB==='topup'){ // geser kanan → ke Akun
+        document.getElementById('tabAkun').click();
+      }
+    }
+  }
+  zone.addEventListener('touchstart', onTouchStart, {passive:true});
+  zone.addEventListener('touchmove', onTouchMove, {passive:false}); // perlu non-passive utk preventDefault
+  zone.addEventListener('touchend', onTouchEnd, {passive:true});
+})();
+
+/* ========= PAYMENT ========= */
+function openPay(title, price){
+  $('#prod').value=title; $('#nominal').value='Rp '+fmt(price);
+  $('#ref').value = REF_PARAM || '';
+  setImgWithLoader($('#qrisImg'), REMOTE_ASSETS.qris);
+  $('#payModal').classList.add('open');
+}
+$('#closePay').addEventListener('click',()=> $('#payModal').classList.remove('open'));
+$('#btnBukaQris').addEventListener('click',(e)=>{ e.currentTarget.href=REMOTE_ASSETS.qris; });
+$('#btnKonfirmasi').addEventListener('click',(e)=>{
+  const ref = ($('#ref').value||'').trim();
+  const {tanggal, jam}=getDateTimeID();
+  const lines=[
+    'KONFIRMASI PEMBAYARAN','',
+    'JENIS : '+($('#prod').value||'-'),
+    'HARGA : '+($('#nominal').value||'-'),
+    'tanggal : '+tanggal,
+    'jam : '+jam,
+    'NAMA : '+($('#nama').value||'-'),
+    'CATATAN : '+($('#note').value||'-'),
+    'KODE REFERRAL : '+(ref||'-'),
+    '', 'Mohon kirim *bukti pembayaran/transfer* (screenshot).',
+    'Jika sudah, admin segera proses pesanan Anda. Terima kasih 🙏'
+  ];
+  e.currentTarget.href=`https://wa.me/${adminNumber}?text=${encodeURIComponent(lines.join('\n'))}`;
+});
+
+/* ========= IMG MODAL ========= */
+function openImg(src, title){
+  $('#imgTitle').textContent=title||'Lihat Foto';
+  const img=$('#imgPreview'), wrap=$('#previewWrap');
+  if(wrap) wrap.classList.remove('loaded');
+  img.onload=()=>{ if(wrap) wrap.classList.add('loaded'); };
+  img.onerror=()=>{ if(wrap) wrap.classList.add('loaded'); };
+  img.src=''; requestAnimationFrame(()=>{ img.src=src||''; });
+  $('#imgModal').classList.add('open');
+}
+$('#closeImg').addEventListener('click',()=> $('#imgModal').classList.remove('open'));
+
+/* ========= PASSIVE SCROLL ========= */
+window.addEventListener('scroll', ()=>{}, {passive:true});
+
+/* ========= INITIAL ========= */
+setImgWithLoader($('#logoImg'), REMOTE_ASSETS.logo);
+document.getElementById('year').textContent=new Date().getFullYear();
+renderAccounts();
+</script>
+</body>
+</html>
