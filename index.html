@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Toko Juragan UB - Murah Cepat Aman Terpercaya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- SPLASH / LOADING LOGO -->
+  <div id="splash" class="splash">
+    <div class="splash-inner">
+      <div class="splash-logo-wrap">
+        <img src="img/logo.png" alt="Juragan UB">
+      </div>
+      <div class="splash-text">Juragan UB</div>
+    <p>Sedia segala kebutuhan kalian<br>Murah • Cepat • Aman • Terpercaya</p>
+    </div>
+  </div>
+    <!-- ... isi website kamu ... -->
+  <div class="page">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <img src="img/logo.png" alt="Logo Toko">
+        </div>
+        <div class="brand">
+          <h1>Juragan UB</h1>
+          <p>Akun • TopUp • Script • MOD • KD • Livery</p>
+
+          <!-- RATING TOKO -->
+          <div class="rating">
+            <div class="rating-stars">
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star half">★</span>
+            </div>
+            <span class="rating-value">4,5/5</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <span>FB @JuraganUB</span>
+        <span>YT @JuraganUB</span>
+        <span>TT @piystoreofficial</span>
+
+        <!-- TOMBOL GANTI TEMA -->
+        <button class="btn small theme-toggle" id="themeToggle" aria-label="Ganti tema">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- TICKER / TEKS BERJALAN -->
+    <div class="ticker">
+      <div class="ticker-inner">
+        <span>Promo: Akun BUSSID mulai 10K • </span>
+        <span>TopUp UB proses 5–15 menit* • </span>
+        <span>Script, MOD & Livery update rutin • </span>
+        <span>Order via WhatsApp admin • </span>
+      </div>
+    </div>
+
+    <!-- HERO + SLIDER -->
+    <section class="hero">
+      <div class="hero-info">
+        <h2>Semua kebutuhan BUSSID<br><span>di satu tempat.</span></h2>
+        <p>Pilih menu, pilih produk, isi data, kirim ke WhatsApp. Selesai.</p>
+        <button class="btn primary" id="btnToMenu">Pilih Menu</button>
+      </div>
+
+      <div class="slider">
+        <div class="slide active">
+          <img src="img/banner1.png" alt="Banner 1">
+        </div>
+        <div class="slide">
+          <img src="img/banner2.png" alt="Banner 2">
+        </div>
+        <div class="slide">
+          <img src="img/banner3.png" alt="Banner 3">
+        </div>
+
+        <div class="slider-dots">
+          <button class="dot active" data-slide="0"></button>
+          <button class="dot" data-slide="1"></button>
+          <button class="dot" data-slide="2"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFO PROFIL -->
+    <section class="info-strip">
+      <div class="info-card">
+        <span class="info-label">Status</span>
+        <span class="info-value" id="statusValue">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Online</span>
+        </span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">Jam Buka</span>
+        <span class="info-value">06.00 – 00.00 WIB</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">Pembayaran</span>
+        <span class="info-value">Dana • GoPay • OVO • Shoope Pay • Bank • Qris</span>
+      </div>
+      <div class="info-card">
+        <span class="info-label">Layanan</span>
+        <span class="info-value">Akun • TopUp • Script • MOD • KD • Livery</span>
+      </div>
+    </section>
+
+    <!-- PANDUAN RINGKAS -->
+    <section class="steps-bar">
+      <span>1. Pilih menu</span>
+      <span>2. Pilih produk</span>
+      <span>3. Isi data & konfirmasi ke admin</span>
+    </section>
+
+    <!-- QUICK ORDER -->
+    <div class="quick-order" id="quickOrderBar">
+      <span>Baru pertama kali order?</span>
+      <button class="btn small" id="quickOrderBtn">Cara order cepat</button>
+    </div>
+
+    <!-- PANEL CARA ORDER CEPAT -->
+    <section class="quick-panel hidden" id="quickPanel">
+      <ol>
+        <li>Pilih menu: Akun / TopUp / Script / MOD / KD / Livery.</li>
+        <li>Pilih produk lalu klik <strong>Beli</strong> / <strong>TopUp</strong>.</li>
+        <li>Isi nama, catatan (permintaan), dan pilih pembayaran.</li>
+        <li>Tekan <strong>Konfirmasi ke Admin</strong> untuk lanjut ke WhatsApp.</li>
+        <li>Lakukan pembayaran & kirim bukti transfer / screenshot ke admin, lalu tunggu proses.</li>
+      </ol>
+    </section>
+
+    <!-- KEUNTUNGAN BELI DI SINI -->
+    <section class="benefits">
+      <div class="benefit-card">
+        <h4>🕒 Proses Cepat</h4>
+        <p>Akun & topup diproses 5–30 menit selama jam kerja.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>🛡️ Aman & Terpercaya</h4>
+        <p>Transaksi via admin, ada bukti & garansi sesuai ketentuan.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>💬 Admin Responsif</h4>
+        <p>Bisa tanya-tanya dulu sebelum order, lewat WhatsApp.</p>
+      </div>
+    </section>
+
+    <!-- PROMO / EVENT KECIL -->
+    <section class="promo-card">
+      <div class="promo-left">
+        <span class="promo-badge">PROMO</span>
+        <h4>Diskon Akun VVIP</h4>
+        <p>Akun BUSSID VVIP <span class="promo-strike">35K</span> jadi <strong>25K</strong> untuk order di hari Jum'at & Minggu.</p>
+      </div>
+      <div class="promo-right">
+        <span>📅 Berlaku terbatas</span>
+        <span>Beli sebelum promo terlewat.</span>
+      </div>
+    </section>
+
+    <!-- TESTIMONI / ULASAN SIMPLE -->
+    <section class="testimonials">
+      <p class="testi-line">
+        ⭐ Lebih dari <strong>900+</strong> user sudah order di sini. Beberapa dari mereka bilang:
+      </p>
+      <p class="testi-quote">
+        “Proses cepat & aman.” • “Admin ramah, bantu sampai beres.” • “Akun sesuai deskripsi.”
+      </p>
+    </section>
+
+    <!-- AREA MENU -->
+    <main class="main hidden" id="mainArea">
+      <!-- MENU SWITCH -->
+      <div class="menu-switch" id="menuSwitch">
+        <button class="menu-btn active" data-menu="akun">🎮 Akun</button>
+        <button class="menu-btn" data-menu="topup">💎 Top Up</button>
+        <button class="menu-btn" data-menu="script">🧩 Script</button>
+        <button class="menu-btn" data-menu="mod">🚍 MOD</button>
+        <button class="menu-btn" data-menu="kd">⚙ KD</button>
+        <button class="menu-btn" data-menu="livery">🎨 Livery</button>
+      </div>
+
+      <!-- TOMBOL TUTORIAL / BANTUAN -->
+      <div class="help-switch">
+        <button class="menu-btn help-btn" id="helpToggleBtn">❓ Tutorial / Bantuan</button>
+      </div>
+
+      <!-- JUDUL MENU + TUTORIAL PER MENU + ETA + SHORTCUT -->
+      <div class="menu-header" id="menuHeader">
+        <h3 id="menuTitle">Menu Akun</h3>
+        <p id="menuDesc">Akun BUSSID siap pakai, tinggal login.</p>
+        <p id="menuTutorial" class="menu-tutorial">
+          Tutorial Akun: - 1) Pilih akun 2) Klik Beli 3) Isi nama 4) Isi catatan (permintaan lain) 5) Konfirmasi ke admin & tunggu data dikirim.
+        </p>
+        <p id="menuEta" class="menu-eta">
+          Estimasi proses: kirim data 5–30 menit setelah pembayaran.
+        </p>
+        <button class="btn small ghost menu-help-shortcut" id="menuHelpShortcut">
+          Lihat bantuan untuk menu ini
+        </button>
+      </div>
+
+      <!-- PANEL BANTUAN (2 KOLOM, FOTO & VIDEO) -->
+      <section class="help-panel hidden" id="helpPanel">
+        <h3>Pusat Bantuan</h3>
+        <p class="help-intro">
+          Pilih panduan yang sesuai dengan kebutuhan kamu. Baca pelan-pelan, jika masih bingung bisa langsung chat admin.
+        </p>
+
+        <div class="help-list">
+          <!-- 1) Cara Login -->
+          <article class="help-item">
+            <h4>🧾 Cara Login Akun BUSSID</h4>
+            <ol>
+              <li>Beli akun di menu <strong>Akun</strong> lalu konfirmasi ke admin.</li>
+              <li>Tunggu data login dikirim melalui WhatsApp (email/FB + password).</li>
+              <li>Buka game BUSSID &gt; pilih menu <strong>Profil</strong> Lalu tekan <strong>Login ke akun lama</strong>.</li>
+              <li>Masukkan data login FB yang dikirim admin, lalu tekan <strong>Masuk</strong>.</li>
+              <li>Jangan bagikan data akun ke orang lain untuk menjaga keamanan.</li>
+            </ol>
+
+            <div class="help-media">
+              <div class="help-media-image">
+                <img src="img/help/login-akun.jpg" alt="Contoh tampilan login BUSSID">
+              </div>
+            </div>
+          </article>
+
+          <!-- 2) Pesanan belum diproses -->
+          <article class="help-item">
+            <h4>⏳ Pesanan Belum Diproses</h4>
+            <ul>
+              <li>Cek lagi jam operasional toko (06.00 – 00.00 WIB).</li>
+              <li>Pastikan kamu sudah mengirim <strong>bukti transfer</strong> / screenshot pembayaran.</li>
+              <li>Kalau admin belum balas, jangan spam. Cukup kirim pesan sekali lagi dengan sopan.</li>
+              <li>Gunakan format singkat dan jelas saat menanyakan status pesanan.</li>
+            </ul>
+          </article>
+
+          <!-- 3) Cara TopUp -->
+          <article class="help-item">
+            <h4>💎 Cara TopUp UB</h4>
+            <ol>
+              <li>Buka menu <strong>Top Up</strong> lalu klik tombol <strong>TopUp Sekarang</strong>.</li>
+              <li>Pilih nominal (5K, 10K, 20K, dst) atau isi nominal custom jika perlu.</li>
+              <li>Pastikan Akun sudah <strong>Terkait</strong> dengan Facebook.</li>
+              <li>Jika belum, dimohon <strong>Kaitkan</strong> Akun terlebih dahulu, jika sudah maka silahkan lanjut.</li>
+              <li>Pilih pembayaran <strong>Dana</strong> atau <strong>QRIS</strong>.</li>
+              <li>Tekan tombol <strong>Konfirmasi ke Admin</strong> dan lanjutkan chat di WhatsApp.</li>
+            </ol>
+
+            <div class="help-media">
+              <div class="help-media-image">
+                <img src="img/help/topup-ub.jpg" alt="Contoh tampilan topup UB">
+              </div>
+              
+              <div class="video-responsive">
+                <iframe
+                  src="https://www.youtube.com/embed/BcXoEUWInTo"
+                  title="Tutorial Mengatasi Masalah Login BUSSID"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <div class="help-video-actions">
+                <a
+                  href="https://youtu.be/BcXoEUWInTo"
+                  target="_blank"
+                  rel="noopener"
+                  class="btn youtube-btn">
+                  🔗 Lihat di YouTube
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4) Masalah Login (dengan video + tombol YT) -->
+          <article class="help-item">
+            <h4>🔐 Cara Mengatasi Masalah Login</h4>
+            <ul>
+              <li>Pastikan koneksi internet stabil (coba pindah ke WiFi/data lain).</li>
+              <li>Pastikan aplikasi BUSSID sudah <strong>versi terbaru</strong>.</li>
+              <li>Cek kembali email/FB dan password yang dikirim admin (copy-paste pelan-pelan).</li>
+              <li>Jika ada verifikasi keamanan (FB/Gmail), ikuti langkah yang diminta.</li>
+              <li>Jika tetap tidak bisa login, screenshot error dan kirim ke admin via WhatsApp.</li>
+            </ul>
+
+            <div class="help-media">
+              <div class="help-media-image">
+                <img src="img/help/error-login.jpg" alt="Contoh error login BUSSID">
+              </div>
+
+              <div class="video-responsive">
+                <iframe
+                  src="https://www.youtube.com/embed/BcXoEUWInTo"
+                  title="Tutorial Mengatasi Masalah Login BUSSID"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <div class="help-video-actions">
+                <a
+                  href="https://youtu.be/BcXoEUWInTo"
+                  target="_blank"
+                  rel="noopener"
+                  class="btn youtube-btn">
+                  🔗 Lihat di YouTube
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION AKUN -->
+      <section class="menu-section active" data-menu="akun">
+        <div class="grid">
+          <!-- Akun 1 -->
+          <article class="card" data-category="Akun" data-name="Akun Bussid Low" data-price="10000">
+            <div class="card-img">
+              <img src="img/products/akun1.jpg" alt="Akun Bussid Low">
+            </div>
+            <div class="card-body">
+              <h4>Akun Bussid Low</h4>
+              <p>250JT UB • Login FB</p>
+              <div class="card-meta">
+                <span class="price">Rp 10.000</span>
+                <span class="tag">Ready</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Akun low cocok untuk pemula. UB sekitar 250JT, login via Facebook, siap main tanpa repot narik dari awal.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <!-- Akun 2 -->
+          <article class="card" data-category="Akun" data-name="Akun Bussid Medium" data-price="20000">
+            <div class="card-img">
+              <img src="img/products/akun2.jpg" alt="Akun Bussid Medium">
+            </div>
+            <div class="card-body">
+              <h4>Akun Bussid Medium</h4>
+              <p>500JT UB • Koleksi lebih banyak</p>
+              <div class="card-meta">
+                <span class="price">Rp 20.000</span>
+                <span class="tag tag-hot">Best seller</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Akun medium untuk pemain aktif. UB sekitar 500JT, uang lebih banyak, enak untuk pemakaian jangka panjang.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <!-- Akun 3 -->
+          <article class="card" data-category="Akun" data-name="Akun Bussid High" data-price="25000">
+            <div class="card-img">
+              <img src="img/products/akun3.jpg" alt="Akun Bussid High">
+            </div>
+            <div class="card-body">
+              <h4>Akun Bussid High</h4>
+              <p>800JT UB • Koleksi premium</p>
+              <div class="card-meta">
+                <span class="price">Rp 25.000</span>
+                <span class="tag">Premium</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Akun high dengan UB tinggi & uang premium, cocok buat yang sering main dan suka koleksi uang.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <!-- Akun 4 -->
+          <article class="card" data-category="Akun" data-name="Akun Bussid Special" data-price="30000">
+            <div class="card-img">
+              <img src="img/products/akun4.jpg" alt="Akun Bussid Special">
+            </div>
+            <div class="card-body">
+              <h4>Akun Bussid Special</h4>
+              <p>Akun Special • lebih premium</p>
+              <div class="card-meta">
+                <span class="price">Rp 30.000</span>
+                <span class="tag">Special</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Akun dengan uang yang cukup banyak. cocok untuk kolektor.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <!-- Akun 5 -->
+          <article class="card" data-category="Akun" data-name="Akun Bussid VVIP" data-price="35000">
+            <div class="card-img">
+              <img src="img/products/akun5.jpg" alt="Akun Bussid VVIP">
+            </div>
+            <div class="card-body">
+              <h4>Akun Bussid VVIP</h4>
+              <p>Akun dengan uang maksimal • VVIP</p>
+              <div class="card-meta">
+                <span class="price">Rp 35.000</span>
+                <span class="tag tag-hot">VVIP</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Akun dengan uang maksimal. Cocok untuk pamer dan kolektor">
+                Detail
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION TOPUP -->
+      <section class="menu-section" data-menu="topup">
+        <div class="grid one">
+          <article class="card"
+                   data-category="Top Up"
+                   data-name="Top Up UB BUSSID"
+                   data-price="0"
+                   data-pricelist="true">
+            <div class="card-img card-img-big">
+              <img src="img/products/pricelist-topup.jpg" alt="Pricelist Top Up UB">
+            </div>
+            <div class="card-body">
+              <h4>Pricelist UB BUSSID</h4>
+              <p>Pilih nominal di bawah, tulis pesan untuk admin dibawah.</p>
+              <div class="card-meta">
+                <span class="price">Sesuai pricelist</span>
+                <span class="tag">TopUp</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">TopUp Sekarang</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="TopUp UB sesuai daftar di pricelist. Pilih nominal, transfer, lalu konfirmasi ke admin.">
+                Detail
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION SCRIPT -->
+      <section class="menu-section" data-menu="script">
+        <div class="grid">
+          <article class="card" data-category="Script" data-name="Script UB Max Bussid" data-price="12000">
+            <div class="card-img">
+              <img src="img/products/script1.jpg" alt="Script UB Max Bussid">
+            </div>
+            <div class="card-body">
+              <h4>Script UB Max</h4>
+              <p>UB langsung max, ada tutorial pasang.</p>
+              <div class="card-meta">
+                <span class="price">Rp 12.000</span>
+                <span class="tag">Script</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Script UB Max untuk langsung menaikkan UB. Wajib backup data sebelum pasang script. Tutorial akan dikirim setelah order.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-category="Script" data-name="Script Livery Full Pack" data-price="10000">
+            <div class="card-img">
+              <img src="img/products/script2.jpg" alt="Script Livery Full Pack">
+            </div>
+            <div class="card-body">
+              <h4>Livery Full Pack</h4>
+              <p>Paket livery, tinggal pilih & pasang.</p>
+              <div class="card-meta">
+                <span class="price">Rp 10.000</span>
+                <span class="tag">Script</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Paket livery full, siap pakai. Tinggal pasang sesuai tutorial yang dikirim setelah pembayaran.">
+                Detail
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION MOD -->
+      <section class="menu-section" data-menu="mod">
+        <div class="grid">
+          <article class="card" data-category="MOD" data-name="MOD Bus Full Anim" data-price="15000">
+            <div class="card-img">
+              <img src="img/products/mod1.jpg" alt="MOD Bus Full Anim">
+            </div>
+            <div class="card-body">
+              <h4>MOD Bus Full Anim</h4>
+              <p>Bus full animasi + interior detail.</p>
+              <div class="card-meta">
+                <span class="price">Rp 15.000</span>
+                <span class="tag">MOD</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="MOD bus dengan animasi lengkap. Kamu akan dapat file MOD + tutorial pasang yang mudah diikuti.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-category="MOD" data-name="MOD Map Jalur Ramai" data-price="12000">
+            <div class="card-img">
+              <img src="img/products/mod2.jpg" alt="MOD Map Jalur Ramai">
+            </div>
+            <div class="card-body">
+              <h4>MOD Map Jalur Ramai</h4>
+              <p>Map custom dengan banyak traffic.</p>
+              <div class="card-meta">
+                <span class="price">Rp 12.000</span>
+                <span class="tag">MOD</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Map custom dengan traffic padat. Link download & cara pasang dikirim lewat WA setelah pembayaran.">
+                Detail
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION KD -->
+      <section class="menu-section" data-menu="kd">
+        <div class="grid">
+          <article class="card" data-category="KD" data-name="Jasa KD Akun" data-price="15000">
+            <div class="card-img">
+              <img src="img/products/kd1.jpg" alt="Jasa KD Akun">
+            </div>
+            <div class="card-body">
+              <h4>Jasa KD Akun</h4>
+              <p>Bantu setting & rapiin akun.</p>
+              <div class="card-meta">
+                <span class="price">Rp 15.000</span>
+                <span class="tag">KD</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Order</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Jasa KD untuk merapikan akun kamu. Tulis kebutuhanmu di catatan, admin akan bantu lewat chat.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-category="KD" data-name="Paket KD + Cek Akun" data-price="20000">
+            <div class="card-img">
+              <img src="img/products/kd2.jpg" alt="Paket KD + Cek Akun">
+            </div>
+            <div class="card-body">
+              <h4>Paket KD + Cek Akun</h4>
+              <p>Termasuk cek keamanan akun.</p>
+              <div class="card-meta">
+                <span class="price">Rp 20.000</span>
+                <span class="tag tag-hot">Rekomendasi</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Order</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Paket lengkap, termasuk cek keamanan akun. Cocok untuk yang sering transaksi.">
+                Detail
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION LIVERY -->
+      <section class="menu-section" data-menu="livery">
+        <div class="grid">
+          <article class="card" data-category="Livery" data-name="Livery Pack Premium" data-price="10000">
+            <div class="card-img">
+              <img src="img/products/livery1.jpg" alt="Livery Pack Premium">
+            </div>
+            <div class="card-body">
+              <h4>Livery Pack Premium</h4>
+              <p>Banyak livery HD siap pakai.</p>
+              <div class="card-meta">
+                <span class="price">Rp 10.000</span>
+                <span class="tag">Livery</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Pack livery premium kualitas HD. Tinggal pasang sesuai bus yang kamu pakai.">
+                Detail
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-category="Livery" data-name="Custom Livery Satu Bus" data-price="15000">
+            <div class="card-img">
+              <img src="img/products/livery2.jpg" alt="Custom Livery Satu Bus">
+            </div>
+            <div class="card-body">
+              <h4>Custom Livery Satu Bus</h4>
+              <p>Request tema sendiri (1 bus).</p>
+              <div class="card-meta">
+                <span class="price">Rp 15.000</span>
+                <span class="tag tag-hot">Custom</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn primary btn-buy">Beli</button>
+              <button class="btn ghost btn-detail"
+                      data-detail="Custom livery sesuai request. Tulis tema dan jenis bus di catatan sebelum konfirmasi ke admin.">
+                Detail
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      &copy; <span id="year"></span> Juragan UB
+    </footer>
+  </div>
+
+  <!-- FLOAT CONTACT ADMIN -->
+  <a href="#" class="float-wa" id="floatWA">
+    <span>💬</span> Contact Admin
+  </a>
+
+  <!-- MODAL ORDER (PEMBAYARAN) -->
+  <div class="modal-backdrop" id="orderBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <span>Form Pesanan</span>
+        <button class="btn ghost small" id="btnCloseModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="orderCategory">
+
+        <div class="field">
+          <label>Nama <span class="required">*</span></label>
+          <input type="text" id="orderName" placeholder="Nama kamu">
+        </div>
+
+        <div class="field">
+          <label>Jenis / Barang</label>
+          <input type="text" id="orderProduct" readonly>
+        </div>
+
+        <div class="field">
+          <label>Harga</label>
+          <input type="text" id="orderPrice" readonly>
+        </div>
+
+        <!-- KHUSUS TOPUP: PILIH NOMINAL -->
+        <div class="field" id="topupNominalGroup">
+          <label>Pilih Nominal TopUp (wajib)</label>
+          <div class="topup-options">
+            <button type="button" class="chip topup-option" data-value="5K">5K</button>
+            <button type="button" class="chip topup-option" data-value="10K">10K</button>
+            <button type="button" class="chip topup-option" data-value="20K">20K</button>
+            <button type="button" class="chip topup-option" data-value="25K">25K</button>
+            <button type="button" class="chip topup-option" data-value="30K">30K</button>
+            <button type="button" class="chip topup-option" data-value="35K">35K</button>
+            <button type="button" class="chip topup-option" data-value="40K">40K</button>
+            <button type="button" class="chip topup-option" data-value="45K">45K</button>
+            <button type="button" class="chip topup-option" data-value="50K">50K</button>
+            <button type="button" class="chip topup-option" data-value="custom">Custom</button>
+          </div>
+          <div class="topup-custom-input" id="topupCustomWrapper">
+            <input type="number" id="topupCustom" min="1" placeholder="Nominal custom (K), contoh: 75">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Catatan (opsional)</label>
+          <textarea id="orderNote" placeholder="Tulis catatan / detail pesanan / permintaan khusus"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Referral Code (opsional)</label>
+          <input type="text" id="orderRef" placeholder="Jika ada kode reff, isi di sini">
+          <p class="field-note" id="refNote" style="display:none;">
+            Referral dikunci dari link yang kamu gunakan.
+          </p>
+        </div>
+
+        <div class="field">
+          <label>Pembayaran</label>
+          <div class="payment-methods">
+            <button type="button" class="pay-btn" id="payDanaBtn">Dana</button>
+            <button type="button" class="pay-btn" id="payQrisBtn">QRIS</button>
+          </div>
+          <input type="hidden" id="orderPayment" value="">
+          <div id="paymentInfoDana" class="payment-extra">
+            Nomor Dana: <strong id="danaNumberText">08xxxxxxxxxx</strong>
+          </div>
+          <div id="paymentInfoQris" class="payment-extra">
+            <p>Scan QRIS berikut untuk pembayaran:</p>
+            <div class="qris-img-wrap">
+              <img src="img/payment/qris.jpg" alt="QRIS Pembayaran">
+            </div>
+          </div>
+          <p class="payment-note">
+            Note: pembayaran bisa dilakukan saat chat di WhatsApp. Mohon kirim <strong>bukti transfer / screenshot pembayaran</strong> setelah bayar.
+          </p>
+        </div>
+
+        <p class="error" id="orderError"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn ghost" id="btnCancelModal">Batal</button>
+        <button class="btn primary" id="btnSendWA">Konfirmasi ke Admin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETAIL PRODUK (GAMBAR PENUH) -->
+  <div class="modal-backdrop" id="detailBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <span>Detail Produk</span>
+        <button class="btn ghost small" id="btnCloseDetail">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-image">
+          <img id="detailImage" src="" alt="">
+        </div>
+        <h4 class="detail-title" id="detailTitle"></h4>
+        <p class="detail-text" id="detailText"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST / NOTIF KECIL -->
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
