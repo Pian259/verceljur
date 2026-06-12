@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Toko Kita — LinkTree</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue-deep:   #020c1b;
+  --blue-mid:    #0a1f3c;
+  --blue-bright: #0d6efd;
+  --blue-accent: #38bdf8;
+  --blue-glow:   #7dd3fc;
+  --cyan:        #22d3ee;
+  --white:       #f0f8ff;
+  --white-dim:   rgba(240,248,255,0.55);
+  --glass-bg:    rgba(10,30,65,0.45);
+  --glass-bg2:   rgba(8,22,50,0.6);
+  --glass-border:rgba(56,189,248,0.22);
+  --glass-border2:rgba(56,189,248,0.12);
+  --radius-lg:   20px;
+  --radius-md:   14px;
+  --radius-sm:   10px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--blue-deep);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ========= ANIMATED BACKGROUND ========= */
+.bg-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(13,110,253,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(34,211,238,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 60% 40%, rgba(56,189,248,0.15) 0%, transparent 50%),
+    linear-gradient(160deg, #020c1b 0%, #050f20 40%, #040d1c 100%);
+}
+
+/* Floating orb blobs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: orbFloat linear infinite;
+}
+.orb-1 { width: 420px; height: 420px; background: radial-gradient(circle, rgba(13,110,253,0.7), transparent 70%); top: -120px; left: -80px; animation-duration: 18s; animation-delay: 0s; }
+.orb-2 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(34,211,238,0.5), transparent 70%); bottom: 5%; right: -60px; animation-duration: 22s; animation-delay: -6s; }
+.orb-3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(56,189,248,0.45), transparent 70%); top: 45%; left: 10%; animation-duration: 28s; animation-delay: -12s; }
+
+@keyframes orbFloat {
+  0%   { transform: translateY(0px) scale(1); }
+  33%  { transform: translateY(-28px) scale(1.04); }
+  66%  { transform: translateY(14px) scale(0.97); }
+  100% { transform: translateY(0px) scale(1); }
+}
+
+/* Glass noise overlay */
+.bg-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ========= PAGE LAYOUT ========= */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 44px 18px 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ========= PROFILE SECTION ========= */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: fadeSlideDown 0.8s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.logo-wrap {
+  position: relative;
+  width: 108px;
+  height: 108px;
+}
+.logo-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(var(--cyan), var(--blue-accent), var(--blue-bright), var(--blue-glow), var(--cyan));
+  animation: spinRing 5s linear infinite;
+  z-index: 0;
+}
+.logo-ring-inner {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: conic-gradient(transparent 60%, rgba(34,211,238,0.5) 80%, transparent 100%);
+  animation: spinRing 3s linear infinite reverse;
+  z-index: 0;
+}
+@keyframes spinRing { to { transform: rotate(360deg); } }
+
+.logo-img-wrap {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  z-index: 1;
+  background: var(--glass-bg2);
+  border: 2px solid var(--blue-mid);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.logo-placeholder {
+  font-size: 40px;
+  line-height: 1;
+}
+
+/* Banner foto toko (besar, di tengah) */
+.banner-wrap {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 40px rgba(13,110,253,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+  background: var(--glass-bg2);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  position: relative;
+  animation: fadeSlideDown 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both;
+  margin-top: 24px;
+}
+.banner-wrap img {
+  width: 100%;
+  display: block;
+  max-height: 220px;
+  object-fit: cover;
+}
+.banner-placeholder {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  background: linear-gradient(135deg, rgba(13,110,253,0.15), rgba(34,211,238,0.08));
+}
+.banner-glow {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(2,12,27,0.7), transparent);
+  pointer-events: none;
+}
+
+.store-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #f0f8ff 20%, var(--blue-glow) 60%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+/* STATS */
+.stats-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+  transition: all 0.3s ease;
+}
+.stat-chip:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 18px rgba(34,211,238,0.2);
+  transform: translateY(-2px);
+}
+.stat-chip .icon { font-size: 15px; }
+.stat-chip .val { color: var(--cyan); font-weight: 700; }
+.stars-row { color: #facc15; font-size: 13px; letter-spacing: 1px; }
+
+/* ========= DIVIDER ========= */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.4), transparent);
+  margin: 28px 0 22px;
+  opacity: 0;
+  animation: fadeIn 1s ease 0.5s both;
+}
+
+/* ========= SECTION LABEL ========= */
+.sec-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(56,189,248,0.6);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+/* ========= LINKS STACK ========= */
+.links-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+/* ========= SINGLE LINK BUTTON ========= */
+.link-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  text-decoration: none;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  -webkit-tap-highlight-color: transparent;
+}
+.link-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(56,189,248,0.12), rgba(34,211,238,0.05));
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+.link-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(125,211,252,0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.link-btn:hover {
+  transform: translateY(-3px) scale(1.015);
+  border-color: rgba(56,189,248,0.5);
+  box-shadow: 0 12px 40px rgba(13,110,253,0.3), 0 0 0 1px rgba(56,189,248,0.15);
+}
+.link-btn:hover::before, .link-btn:hover::after { opacity: 1; }
+.link-btn:active { transform: scale(0.975); transition: transform 0.1s; }
+
+/* Featured button */
+.link-btn.featured {
+  border-color: rgba(34,211,238,0.4);
+  background: linear-gradient(135deg, rgba(34,211,238,0.1), rgba(13,110,253,0.18));
+}
+.link-btn.featured::after { opacity: 1; }
+
+/* Button icon */
+.btn-ico {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  overflow: hidden;
+  background: rgba(13,110,253,0.2);
+  border: 1px solid rgba(56,189,248,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: transform 0.3s;
+}
+.btn-ico img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: calc(var(--radius-sm) - 2px);
+}
+.link-btn:hover .btn-ico { transform: scale(1.08) rotate(-3deg); }
+
+.btn-text { flex: 1; text-align: left; }
+.btn-title { font-size: 14px; font-weight: 600; letter-spacing: 0.2px; }
+.btn-sub { font-size: 11.5px; color: var(--white-dim); margin-top: 2px; }
+
+.btn-arrow {
+  color: var(--blue-accent);
+  font-size: 20px;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink: 0;
+}
+.link-btn:hover .btn-arrow { transform: translateX(5px); }
+
+/* Badge */
+.badge {
+  background: linear-gradient(135deg, var(--cyan), var(--blue-accent));
+  color: var(--blue-deep);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border-radius: 999px;
+  padding: 3px 9px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+/* ========= GROUP ACCORDION ========= */
+.group-wrap {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.group-trigger {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+  overflow: hidden;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.group-trigger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(56,189,248,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.group-trigger:hover { border-color: rgba(56,189,248,0.45); box-shadow: 0 8px 32px rgba(13,110,253,0.25); }
+.group-trigger:hover::before { opacity: 1; }
+.group-trigger.open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  border-color: rgba(56,189,248,0.4);
+}
+
+.group-chevron {
+  margin-left: auto;
+  color: var(--cyan);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.group-trigger.open .group-chevron { transform: rotate(180deg); }
+
+/* Accordion panel */
+.group-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+  background: rgba(5,16,38,0.7);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-top: none;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+}
+.group-panel.open { max-height: 700px; }
+.group-inner { padding: 10px 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+
+/* Group child item */
+.group-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(13,30,60,0.5);
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  -webkit-tap-highlight-color: transparent;
+}
+.group-item:hover {
+  border-color: rgba(56,189,248,0.3);
+  background: rgba(13,110,253,0.12);
+  transform: translateX(5px);
+  box-shadow: 0 4px 18px rgba(13,110,253,0.2);
+}
+.group-item:active { transform: scale(0.97); }
+
+.item-ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: rgba(13,110,253,0.2);
+  border: 1px solid rgba(56,189,248,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+.item-ico img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+.group-item:hover .item-ico { transform: scale(1.1) rotate(-4deg); }
+
+.item-text { flex: 1; }
+.item-title { font-size: 13px; font-weight: 600; }
+.item-sub { font-size: 11px; color: var(--white-dim); margin-top: 1px; }
+.item-arrow { color: rgba(56,189,248,0.5); font-size: 14px; flex-shrink: 0; transition: transform 0.25s; }
+.group-item:hover .item-arrow { transform: translateX(3px); color: var(--cyan); }
+
+/* ========= RIPPLE ========= */
+.ripple-el {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(56,189,248,0.25);
+  transform: scale(0);
+  pointer-events: none;
+  animation: rippleAnim 0.65s ease-out forwards;
+}
+@keyframes rippleAnim {
+  to { transform: scale(4.5); opacity: 0; }
+}
+
+/* ========= FOOTER ========= */
+.footer {
+  text-align: center;
+  margin-top: 44px;
+  font-size: 11px;
+  color: rgba(125,211,252,0.3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ========= ANIMATIONS ========= */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Stagger delays */
+.links-stack > .link-btn:nth-child(1) { animation-delay: 0.30s; }
+.links-stack > .link-btn:nth-child(2) { animation-delay: 0.40s; }
+.links-stack > .link-btn:nth-child(3) { animation-delay: 0.50s; }
+.links-stack > .link-btn:nth-child(4) { animation-delay: 0.60s; }
+.links-stack > .link-btn:nth-child(5) { animation-delay: 0.70s; }
+.links-stack > .link-btn:nth-child(6) { animation-delay: 0.80s; }
+.links-stack > .group-wrap:nth-child(7)  { animation-delay: 0.85s; }
+.links-stack > .group-wrap:nth-child(8)  { animation-delay: 0.95s; }
+.links-stack > .group-wrap:nth-child(9)  { animation-delay: 1.05s; }
+
+/* Responsive */
+@media (max-width: 400px) {
+  .store-name { font-size: 22px; }
+  .page { padding: 32px 14px 60px; }
+  .btn-ico { width: 40px; height: 40px; }
+  .banner-wrap img { max-height: 160px; }
+}
+@media (min-width: 768px) {
+  .page { padding: 60px 18px 80px; }
+  .banner-wrap img { max-height: 260px; }
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-wrap">
+  <div class="bg-gradient"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="bg-noise"></div>
+</div>
+
+<div class="page">
+
+  <!-- ===== PROFILE ===== -->
+  <div class="profile">
+
+    <!-- Logo bulat -->
+    <div class="logo-wrap">
+      <div class="logo-ring"></div>
+      <div class="logo-ring-inner"></div>
+      <div class="logo-img-wrap">
+        <!-- Ganti dengan: <img src="logo.png" alt="Logo"> -->
+        <div class="logo-placeholder">🏪</div>
+      </div>
+    </div>
+
+    <!-- Nama Toko -->
+    <h1 class="store-name">Piy Store</h1>
+
+    <!-- Stats: Testi & Followers sejajar, Rating di bawah -->
+    <div class="stats-row">
+      <div class="stat-chip">
+        <span class="icon">🛡️</span>
+        <span class="val">1K+</span>&nbsp;Testi
+      </div>
+      <div class="stat-chip">
+        <span class="icon">👥</span>
+        <span class="val">1,4K</span>&nbsp;Followers
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-chip">
+        <span class="stars-row">★★★★★</span>&nbsp;
+        <span class="val">4.9</span>&nbsp;Rating
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== BANNER / FOTO TOKO ===== -->
+  <div class="banner-wrap">
+    <!-- Ganti dengan: <img src="foto-toko.png" alt="Foto Toko"> -->
+    <div class="banner-placeholder">🏬</div>
+    <div class="banner-glow"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== LINKS ===== -->
+  <p class="sec-label">✦ Hubungi & Temukan Kami ✦</p>
+
+  <div class="links-stack">
+
+    <!-- WA ADMIN (featured, full lebar tanpa icon kiri sesuai wireframe) -->
+    <a href="https://wa.me/6287729805594" class="link-btn featured" onclick="ripple(event,this)">
+      <div class="btn-ico">📱</div>
+      <div class="btn-text">
+        <div class="btn-title">WA Admin</div>
+        <div class="btn-sub">Chat langsung, fast respon!</div>
+      </div>
+      <span class="badge">ONLINE</span>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <!-- SALURAN ADMIN dengan logo -->
+    <a href="https://whatsapp.com/channel/0029VamyYqMHbFUxgrpYZZ30" class="link-btn" onclick="ripple(event,this)">
+      <div class="btn-ico">
+        <!-- Ganti dengan: <img src="logo-telegram.png" alt=""> -->
+        📢
+      </div>
+      <div class="btn-text">
+        <div class="btn-title">Saluran Admin</div>
+        <div class="btn-sub">Info promo & update terbaru</div>
+      </div>
+      <span class="btn-arrow">›</span>
+    </a>
+
+    <!-- GRUP FOLDER: GRUP WHATSAPP -->
+    <div class="group-wrap">
+      <button class="group-trigger" onclick="toggleGroup(this)">
+        <div class="btn-ico">👥</div>
+        <div class="btn-text">
+          <div class="btn-title">Folder Grup</div>
+          <div class="btn-sub">Klik untuk lihat grup</div>
+        </div>
+        <span class="group-chevron">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
+      <div class="group-panel">
+        <div class="group-inner">
+
+          <a href="https://chat.whatsapp.com/H6XD7h5K5HdElUGjErlt8B?s=cl&p=a&mlu=0&amv=2" class="group-item">
+            <div class="item-ico">
+              <!-- <img src="logo-grup1.png" alt=""> -->
+              👾
+            </div>
+            <div class="item-text">
+              <div class="item-title">GB¹ INFO FT CEES RECEH PIY X OWN</div>
+              <div class="item-sub">Komunitas member aktif</div>
+            </div>
+            <span class="item-arrow">›</span>
+          </a>
+
+          <a href="https://chat.whatsapp.com/IF4yNzfPnowBuiRkqLWsBb?s=cl&p=a&mlu=0&amv=2" class="group-item">
+            <div class="item-ico">
+              <!-- <img src="logo-grup2.png" alt=""> -->
+              🔥
+            </div>
+            <div class="item-text">
+              <div class="item-title">GB JUBEL AKUN ALL GAME PIY</div>
+              <div class="item-sub">Flash sale & penawaran eksklusif</div>
+            </div>
+            <span class="item-arrow">›</span>
+          </a>
+
+          <a href="https://chat.whatsapp.com/K0inj9pqN0BIR3B1K40Gk7?s=cl&p=a&mlu=0&amv=2" class="group-item">
+            <div class="item-ico">
+              <!-- <img src="logo-grup3.png" alt=""> -->
+              💎
+            </div>
+            <div class="item-text">
+              <div class="item-title">GB MARKET BUSSID</div>
+              <div class="item-sub">Member premium VIP</div>
+            </div>
+            <span class="item-arrow">›</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- GRUP FOLDER: SOSMED ADMIN -->
+    <div class="group-wrap">
+      <button class="group-trigger" onclick="toggleGroup(this)">
+        <div class="btn-ico">🌐</div>
+        <div class="btn-text">
+          <div class="btn-title">Sosmed Admin</div>
+          <div class="btn-sub">Semua platform sosial media</div>
+        </div>
+        <span class="group-chevron">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
+      <div class="group-panel">
+        <div class="group-inner">
+
+          <a href="https://instagram.com/py_ynn" class="group-item">
+            <div class="item-ico">
+              <!-- <img src="logo-ig.png" alt=""> -->
+              📸
+            </div>
+            <div class="item-text">
+              <div class="item-title">Instagram</div>
+              <div class="item-sub">@py_ynn</div>
+            </div>
+            <span class="item-arrow">›</span>
+          </a>
+
+          <a href="https://tiktok.com/@piy_project" class="group-item">
+            <div class="item-ico">
+              <!-- <img src="logo-tiktok.png" alt=""> -->
+              🎵
+            </div>
+            <div class="item-text">
+              <div class="item-title">TikTok Mimin</div>
+              <div class="item-sub">Yang ori cuma ini</div>
+            </div>
+            <span class="item-arrow">›</span>
+          </a>
+
+          <a href="https://youtube.com/piyproject" class="group-item">
+            <div class="item-ico">
+              <!-- <img src="logo-shopee.png" alt=""> -->
+              🛍️
+            </div>
+            <div class="item-text">
+              <div class="item-title">Youtube</div>
+              <div class="item-sub">Yang reall cuma ini</div>
+            </div>
+            <span class="item-arrow">›</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">✦ Piy Project · 2025 ✦</div>
+
+</div>
+
+<script>
+  /* ---- GROUP ACCORDION ---- */
+  function toggleGroup(btn) {
+    const panel = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.group-trigger.open').forEach(b => {
+      b.classList.remove('open');
+      b.nextElementSibling.classList.remove('open');
+    });
+
+    // Open if was closed
+    if (!isOpen) {
+      btn.classList.add('open');
+      panel.classList.add('open');
+    }
+  }
+
+  /* ---- RIPPLE ---- */
+  function ripple(e, el) {
+    const rect = el.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = (e.clientX || e.touches?.[0]?.clientX || rect.left + rect.width/2) - rect.left;
+    const y = (e.clientY || e.touches?.[0]?.clientY || rect.top + rect.height/2) - rect.top;
+    const r = document.createElement('span');
+    r.className = 'ripple-el';
+    r.style.cssText = `width:${size}px;height:${size}px;left:${x - size/2}px;top:${y - size/2}px;`;
+    el.appendChild(r);
+    setTimeout(() => r.remove(), 700);
+  }
+
+  /* Attach ripple to group-trigger clicks too */
+  document.querySelectorAll('.group-trigger').forEach(btn => {
+    btn.addEventListener('click', e => ripple(e, btn));
+  });
+  document.querySelectorAll('.group-item').forEach(item => {
+    item.addEventListener('click', e => ripple(e, item));
+  });
+
+  /* ---- STAGGER ANIMATION for group-wraps ---- */
+  const groups = document.querySelectorAll('.group-wrap');
+  groups.forEach((g, i) => {
+    g.style.animationDelay = (0.85 + i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>
